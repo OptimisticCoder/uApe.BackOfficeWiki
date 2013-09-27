@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uApe.BackOfficeWiki", "uApe.BackOfficeWiki\uApe.BackOfficeWiki.csproj", "{E5955BEC-4E4B-46E0-9C00-A7DD347E243D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5EBC1A0-217B-4884-AB0A-503C7470E35E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		Umbraco Package\uApe.BackOfficeWiki_1.0.zip = Umbraco Package\uApe.BackOfficeWiki_1.0.zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

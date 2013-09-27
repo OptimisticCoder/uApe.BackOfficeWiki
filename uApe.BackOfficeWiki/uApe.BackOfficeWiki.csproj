@@ -335,7 +335,6 @@
     <None Include="BackOfficeWiki\fonts\glyphicons-halflings-regular.eot" />
     <None Include="BackOfficeWiki\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="BackOfficeWiki\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
