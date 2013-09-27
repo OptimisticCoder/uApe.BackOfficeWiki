@@ -1,0 +1,15 @@
+*.suo
+*.csproj.user
+
+[bB]uilds/
+uApe.BackOfficeWiki/obj/
+uApe.BackOfficeWiki/BackOfficeWiki/Visual Studio 2010/
+uApe.BackOfficeWiki/BackOfficeWiki/.sass-cache/
+uApe.BackOfficeWiki/.sass-cache/
+
+packages/*/
+
+uApe.BackOfficeWiki/Web.config
+uApe.BackOfficeWiki/Web.Debug.config
+uApe.BackOfficeWiki/Web.Release.config
+uApe.BackOfficeWiki/Config/Dashboard.config
