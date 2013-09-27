@@ -11,6 +11,9 @@ using MarkdownSharp;
 
 namespace uApe.BackOfficeWiki
 {
+    /// <summary>
+    /// Enumeration to represent the current display mode of the Wiki.
+    /// </summary>
     public enum DisplayMode
     {
         Display,
@@ -19,8 +22,12 @@ namespace uApe.BackOfficeWiki
         CategoryEditor
     }
 
+    /// <summary>
+    /// The main user control class.
+    /// </summary>
     public partial class BackOfficeWikiControl : System.Web.UI.UserControl
     {
+        // Constants for consistent icons and text in the toolbar.
         public const String IconEditPath = "/plugins/backofficewiki/images/edit.png";
         public const String IconEditTitle = "Edit Page";
 
@@ -41,23 +48,31 @@ namespace uApe.BackOfficeWiki
         public const String IconCategoriesPath = "/plugins/backofficewiki/images/cats.png";
         public const String IconCategoriesTitle = "Category Editor";
 
-        MenuImageButton btnEditAndBack = null;
-        MenuImageButton btnSave = null;
-        MenuImageButton btnDelete = null;
-        Image splitter = null;
-        MenuImageButton btnNewPage = null;
-        MenuImageButton btnCategoryEditor = null;
+        // Private toolbar elements
+        private MenuImageButton btnEditAndBack = null;
+        private MenuImageButton btnSave = null;
+        private MenuImageButton btnDelete = null;
+        private Image splitter = null;
+        private MenuImageButton btnNewPage = null;
+        private MenuImageButton btnCategoryEditor = null;
 
+        /// <summary>
+        /// The first method to be executed in this class, responsible for initializing the toolbar.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnInit(EventArgs e)
         {
+            // Get a reference to the Wiki tab.
             TabPage tab = (TabPage)Parent.Parent.Parent;
 
+            // Add the multi-purpose "Edit" and "Back" button.
             btnEditAndBack = tab.Menu.NewImageButton();
             btnEditAndBack.ImageUrl = GlobalSettings.Path + IconEditPath;
             btnEditAndBack.Command += new CommandEventHandler(btn_Command);
             btnEditAndBack.ToolTip = IconEditTitle;
             btnEditAndBack.CommandName = "edit";
 
+            // Add and hide the "Save" button.
             btnSave = tab.Menu.NewImageButton();
             btnSave.ImageUrl = GlobalSettings.Path + IconSavePath;
             btnSave.Command += new CommandEventHandler(btn_Command);
@@ -65,6 +80,7 @@ namespace uApe.BackOfficeWiki
             btnSave.CommandName = "save";
             btnSave.Visible = false;
 
+            // Add and hide the "Delete" button.
             btnDelete = tab.Menu.NewImageButton();
             btnDelete.ImageUrl = GlobalSettings.Path + IconDeletePath;
             btnDelete.Command += new CommandEventHandler(btn_Command);
@@ -73,11 +89,13 @@ namespace uApe.BackOfficeWiki
             btnDelete.OnClientClick = "return deletePage()";
             btnDelete.Visible = false;
 
+            // Add the splitter to seperate Save/Delete and New Page/Category Editor on Edit screen.
             splitter = new Image();
             splitter.ImageUrl = GlobalSettings.Path + IconSplitterPath;
             splitter.Visible = false;
             tab.Menu.InsertNewControl(splitter);
 
+            // Add and hide the "New Page" button.
             btnNewPage = tab.Menu.NewImageButton();
             btnNewPage.ImageUrl = GlobalSettings.Path + IconNewPagePath;
             btnNewPage.Command += new CommandEventHandler(btn_Command);
@@ -85,6 +103,7 @@ namespace uApe.BackOfficeWiki
             btnNewPage.CommandName = "newpage";
             btnNewPage.Visible = false;
 
+            // Add and hide the "Category Editor" button.
             btnCategoryEditor = tab.Menu.NewImageButton();
             btnCategoryEditor.ImageUrl = GlobalSettings.Path + IconCategoriesPath;
             btnCategoryEditor.Command += new CommandEventHandler(btn_Command);
@@ -93,34 +112,55 @@ namespace uApe.BackOfficeWiki
             btnCategoryEditor.Visible = false;
         }
 
+        /// <summary>
+        /// Page load method fires after the Init method and before Button events.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Hide the error panel, if it is visible.
             pnlError.Visible = false;
+
+            // Add autocomplete attribute to the page's form, to keep the UI clean.
             Page.Form.Attributes.Add("autocomplete", "off");
 
+            // If this is a postback, the button events handle data loading because they fire later.
             if (!Page.IsPostBack && !Page.IsCallback)
             {
+                // If not a postback, load the default Wiki page by specifying an empty page name.
                 ltPageName.Text = String.Empty;
                 showMode(DisplayMode.Display);
             }
         }
 
+        /// <summary>
+        /// The generic button "Command" event, fired by most UI buttons.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btn_Command(object sender, CommandEventArgs e)
         {
+            // Work out which button fired the event.
             switch (e.CommandName)
             {
                 case "edit":
+                    // Edit was clicked from Display mode, so show Edit screen.
                     showMode(DisplayMode.Edit);
                     break;
                 case "close":
                     if (hdnMode.Value != "Edit")
+                        // Back was clicked from New Page, or Cat Editor mode, so show Edit screen.
                         showMode(DisplayMode.Edit);
                     else
+                        // Back was clicked from Edit page, so show Display screen.
                         showMode(DisplayMode.Display);
                     break;
                 case "save":
+                    // One of the Save buttons was clicked.
                     if (hdnMode.Value == "Edit")
                     {
+                        // We're in Edit mode, check the Wiki page has a name.
                         if (String.IsNullOrEmpty(txtPageName.Text))
                         {
                             ltError.Text = "The page must have a name.";
@@ -128,16 +168,21 @@ namespace uApe.BackOfficeWiki
                             return;
                         }
 
+                        // Save the page data to the XML file.
                         WikiPage page = new WikiPage();
                         page.Name = ltPageName.Text;
                         page.MarkDown = txtMarkDown.Text;
                         page.Save(txtPageName.Text);
+
+                        // Set the current page name.
                         ltPageName.Text = txtPageName.Text;
 
+                        // Load the Display screen.
                         showMode(DisplayMode.Display);
                     }
                     else if (hdnMode.Value == "New Page")
                     {
+                        // We're in New Page mode, check the Wiki page has a name, and category.
                         if (String.IsNullOrEmpty(ddlNewCategory.SelectedValue))
                         {
                             ltError.Text = "The page must belong to a category.";
@@ -151,23 +196,30 @@ namespace uApe.BackOfficeWiki
                             return;
                         }
 
+                        // Save the page data to the XML file.
                         WikiPage page = new WikiPage();
                         page.Name = txtNewPageTitle.Text;
                         page.MarkDown = txtNewMarkDown.Text;
                         page.MakeNew(ddlNewCategory.SelectedValue);
+
+                        // Set the current page name.
                         ltPageName.Text = txtNewPageTitle.Text;
 
+                        // Load the Display screen.
                         showMode(DisplayMode.Display);
                     }
                     break;
                 case "newpage":
+                    // The New Page button was clicked, so load the screen.
                     showMode(DisplayMode.New);
                     bindCategories();
                     break;
                 case "cats":
+                    // The Category Editor button was clicked, so load the screen.
                     showMode(DisplayMode.CategoryEditor);
                     break;
                 case "link":
+                    // An internal Wiki link was clicked in Display mode, so load the new Wiki page.
                     ltPageName.Text = e.CommandArgument.ToString();
                     showMode(DisplayMode.Display);
                     break;
@@ -212,7 +264,10 @@ namespace uApe.BackOfficeWiki
                     delPage.Name = hdnPageName.Value;
                     delPage.Delete();
 
-                    showMode(DisplayMode.CategoryEditor);
+                    // The page we were working on has gone, so reset to the default.
+                    ltPageName.Text = String.Empty;
+
+                    showMode(DisplayMode.Display);
                     break;
             }
         }
