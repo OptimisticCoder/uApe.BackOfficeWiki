@@ -13,6 +13,12 @@ h1, h2, h3
 	border:solid 1px #e0e0e0;
 }
 
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
 .breadcrumb,
 .alert
 {
@@ -122,7 +128,7 @@ ul.categorylist .sortable-placeholder:before {
 		textarea
 		{
 			width:99%;
-			min-height:600px;
+			min-height:500px;
 			resize:none;
 			margin-top:5px;
 			padding:10px 0px 0px 10px;

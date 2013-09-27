@@ -8,6 +8,11 @@ h1, h2, h3 {
   background-color: White;
   border: solid 1px #e0e0e0; }
 
+img {
+  display: block;
+  height: auto;
+  max-width: 100%; }
+
 .breadcrumb,
 .alert {
   margin-bottom: 5px; }
@@ -81,7 +86,7 @@ ul.categorylist .sortable-placeholder:before {
     width: 15%; }
   .wiki .edit textarea, .wiki .new textarea, .wiki .cateditor textarea {
     width: 99%;
-    min-height: 600px;
+    min-height: 500px;
     resize: none;
     margin-top: 5px;
     padding: 10px 0px 0px 10px; }
