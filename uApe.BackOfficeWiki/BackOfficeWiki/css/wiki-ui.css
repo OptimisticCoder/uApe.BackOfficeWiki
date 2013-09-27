@@ -1,0 +1,93 @@
+h1, h2, h3 {
+  margin-top: 10px; }
+
+.center {
+  text-align: center; }
+
+.breadcrumb {
+  background-color: White;
+  border: solid 1px #e0e0e0; }
+
+.breadcrumb,
+.alert {
+  margin-bottom: 5px; }
+
+.saveorder,
+.btndiv {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+
+.saveorder {
+  text-align: center; }
+
+.drag-handle, .dragging, .dragging * {
+  cursor: move !important; }
+
+.drag-handle {
+  margin: 0; }
+
+div.cathead {
+  width: 100%;
+  display: table;
+  text-align: left; }
+  div.cathead div {
+    display: table-row; }
+  div.cathead h5, div.cathead span {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle; }
+  div.cathead h5 {
+    padding: 0px 0px 0px 10px !important;
+    font-weight: bold;
+    color: #808080; }
+  div.cathead span {
+    width: 16px; }
+
+.sortable-dragging {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+  border: dotted 1px #000000;
+  height: 40px;
+  width: 100%; }
+
+.sortable-placeholder {
+  position: relative;
+  border: dotted 1px #000000;
+  height: 40px;
+  width: 100%; }
+
+ul.categorylist .sortable-placeholder:before {
+  position: absolute; }
+
+.cateditorpages {
+  margin-top: 10px;
+  margin-bottom: 20px; }
+  .cateditorpages li {
+    color: #a0a0a0;
+    padding: 5px 0px 5px 0px; }
+
+.sl input, .sl img {
+  float: left; }
+
+.sl img {
+  margin: 5px 10px 0px 10px; }
+
+.wiki {
+  clear: both; }
+  .wiki .display {
+    margin-top: 10px; }
+  .wiki .edit label, .wiki .new label, .wiki .cateditor label {
+    width: 15%; }
+  .wiki .edit textarea, .wiki .new textarea, .wiki .cateditor textarea {
+    width: 99%;
+    min-height: 600px;
+    resize: none;
+    margin-top: 5px;
+    padding: 10px 0px 0px 10px; }
+  .wiki .edit select,
+  .wiki .edit input[type=text], .wiki .new select,
+  .wiki .new input[type=text], .wiki .cateditor select,
+  .wiki .cateditor input[type=text] {
+    width: 83.5%; }
+
