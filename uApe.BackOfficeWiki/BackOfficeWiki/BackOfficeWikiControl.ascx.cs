@@ -205,6 +205,9 @@ namespace uApe.BackOfficeWiki
                         // Set the current page name.
                         ltPageName.Text = txtNewPageTitle.Text;
 
+                        // Clear the new page name textbox after creating a page
+                        txtNewPageTitle.Text = String.Empty;
+
                         // Load the Display screen.
                         showMode(DisplayMode.Display);
                     }
@@ -234,6 +237,9 @@ namespace uApe.BackOfficeWiki
                     var newCat = new WikiPageCategory();
                     newCat.Name = txtNewCatName.Text;
                     newCat.MakeNew();
+
+                    // Clear the new category name textbox after creating a category
+                    txtNewCatName.Text = String.Empty;
 
                     showMode(DisplayMode.CategoryEditor);
                     break;
