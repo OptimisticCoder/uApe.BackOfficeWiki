@@ -76,6 +76,15 @@ namespace uApe.BackOfficeWiki {
         protected global::System.Web.UI.WebControls.Panel pnlDisplay;
         
         /// <summary>
+        /// displayBreadcrumbs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl displayBreadcrumbs;
+        
+        /// <summary>
         /// ltCategory control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace uApe.BackOfficeWiki {
         protected global::System.Web.UI.WebControls.Literal ltPageName;
         
         /// <summary>
+        /// pnlDisplayContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDisplayContent;
+        
+        /// <summary>
         /// phContent control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,15 @@ namespace uApe.BackOfficeWiki {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phContent;
+        
+        /// <summary>
+        /// pnlDisplayNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDisplayNav;
         
         /// <summary>
         /// rptCategories control.
@@ -121,13 +148,13 @@ namespace uApe.BackOfficeWiki {
         protected global::System.Web.UI.WebControls.Panel pnlEdit;
         
         /// <summary>
-        /// lbPageName control.
+        /// ltPageNameEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbPageName;
+        protected global::System.Web.UI.WebControls.Literal ltPageNameEdit;
         
         /// <summary>
         /// hdnPageName control.
@@ -137,6 +164,15 @@ namespace uApe.BackOfficeWiki {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPageName;
+        
+        /// <summary>
+        /// lbPageName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbPageName;
         
         /// <summary>
         /// txtPageName control.

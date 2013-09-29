@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using umbraco.uicontrols;
 using umbraco;
 using MarkdownSharp;
+using Newtonsoft.Json.Linq;
 
 namespace uApe.BackOfficeWiki
 {
@@ -63,7 +64,8 @@ namespace uApe.BackOfficeWiki
         protected override void OnInit(EventArgs e)
         {
             // Get a reference to the Wiki tab.
-            TabPage tab = (TabPage)Parent.Parent.Parent;
+            var tab = (TabPage)Parent.Parent.Parent;
+            var menu = tab.Menu;
 
             // Add the multi-purpose "Edit" and "Back" button.
             btnEditAndBack = tab.Menu.NewImageButton();
@@ -122,6 +124,18 @@ namespace uApe.BackOfficeWiki
             // Hide the error panel, if it is visible.
             pnlError.Visible = false;
 
+            BackOfficeWikiConfig config =
+                    (BackOfficeWikiConfig)System.Configuration.ConfigurationManager.GetSection("backOfficeWiki");
+            if (!config.Menu.Enabled)
+            {
+                pnlDisplayNav.Visible = false;
+                pnlDisplayContent.CssClass = "display col-xs-12";
+            }
+            if (!config.Breadcrumbs.Enabled)
+            {
+                displayBreadcrumbs.Visible = false;
+            }
+            
             // Add autocomplete attribute to the page's form, to keep the UI clean.
             Page.Form.Attributes.Add("autocomplete", "off");
 
@@ -258,7 +272,7 @@ namespace uApe.BackOfficeWiki
                     showMode(DisplayMode.CategoryEditor);
                     break;
                 case "savecatorder":
-                    String[] catOrder = hdnDisplayOrder.Value.Split(new String[] { "|,|" }, StringSplitOptions.RemoveEmptyEntries);
+                    dynamic catOrder = JObject.Parse(hdnDisplayOrder.Value);
 
                     var reorderCat = new WikiPageCategory();
                     reorderCat.ReOrder(catOrder);
@@ -352,6 +366,7 @@ namespace uApe.BackOfficeWiki
                 case DisplayMode.Edit:
 
                     pnlEdit.Visible = true;
+                    ltPageNameEdit.Text = ltPageName.Text;
 
                     btnEditAndBack.ImageUrl = GlobalSettings.Path + IconBackPath;
                     btnEditAndBack.ToolTip = IconBackTitle;

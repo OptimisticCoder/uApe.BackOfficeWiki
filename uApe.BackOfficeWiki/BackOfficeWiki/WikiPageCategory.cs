@@ -22,9 +22,9 @@ namespace uApe.BackOfficeWiki
             deleteCategory(this.Name);
         }
 
-        public void ReOrder(String[] categoryNames)
+        public void ReOrder(dynamic categories)
         {
-            reOrderCategory(categoryNames);
+            reOrderCategory(categories);
         }
 
         public Boolean LoadByPage(String pageName)

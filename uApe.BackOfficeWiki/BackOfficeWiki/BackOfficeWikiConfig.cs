@@ -55,6 +55,28 @@ namespace uApe.BackOfficeWiki
             { this["XmlDataPath"] = value; }
         }
 
+        [ConfigurationProperty("Menu")]
+        public IsEnabledElement Menu
+        {
+            get
+            {
+                return (IsEnabledElement)this["Menu"];
+            }
+            set
+            { this["Menu"] = value; }
+        }
+
+        [ConfigurationProperty("Breadcrumbs")]
+        public IsEnabledElement Breadcrumbs
+        {
+            get
+            {
+                return (IsEnabledElement)this["Breadcrumbs"];
+            }
+            set
+            { this["Breadcrumbs"] = value; }
+        }
+
         [ConfigurationProperty("Permissions")]
         public PermissionsElement Permissions
         {
@@ -80,6 +102,22 @@ namespace uApe.BackOfficeWiki
             set
             {
                 this["path"] = value;
+            }
+        }
+    }
+
+    public class IsEnabledElement : ConfigurationElement
+    {
+        [ConfigurationProperty("enabled", DefaultValue = true, IsRequired = false)]
+        public Boolean Enabled
+        {
+            get
+            {
+                return (Boolean)this["enabled"];
+            }
+            set
+            {
+                this["enabled"] = value;
             }
         }
     }

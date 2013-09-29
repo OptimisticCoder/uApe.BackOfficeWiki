@@ -178,7 +178,7 @@ namespace uApe.BackOfficeWiki
             }
         }
 
-        protected void reOrderCategory(String[] categoryNames)
+        protected void reOrderCategory(dynamic categories)
         {
             var xml = XDocument.Load(getXmlPath());
 
@@ -191,17 +191,18 @@ namespace uApe.BackOfficeWiki
                 writer.WriteWhitespace("\n    ");
 
                 // Loop through existing categories and pages, writing them to the new file.
-                foreach (var currName in categoryNames)
+                foreach (var cat in categories.cats)
                 {
-                    var c = getCategoryByName(xml, currName);
                     writer.WriteStartElement("Category");
-                    writer.WriteAttributeString("name", c.Attribute("name").Value);
-                    foreach (var p in c.Descendants("Page"))
+                    writer.WriteAttributeString("name", cat.catName.ToString());
+                    foreach (var p in cat.pages)
                     {
+                        var pageXml = getPageByName(xml, p.ToString());
+
                         writer.WriteWhitespace("\n        ");
                         writer.WriteStartElement("Page");
-                        writer.WriteAttributeString("name", p.Attribute("name").Value);
-                        writer.WriteValue(p.Value);
+                        writer.WriteAttributeString("name", pageXml.Attribute("name").Value);
+                        writer.WriteValue(pageXml.Value);
                         writer.WriteEndElement();
                         writer.WriteWhitespace("\n    ");
                     }
@@ -261,10 +262,10 @@ namespace uApe.BackOfficeWiki
                     select a).ToArray();
         }
 
-        protected XElement getCategoryByName(XDocument xml, String categoryName)
+        protected XElement getPageByName(XDocument xml, String pageName)
         {
-            return (from a in xml.Descendants("Category")
-                    where a.Attribute("name").Value == categoryName
+            return (from a in xml.Descendants("Page")
+                    where a.Attribute("name").Value == pageName
                     select a).FirstOrDefault();
         }
 

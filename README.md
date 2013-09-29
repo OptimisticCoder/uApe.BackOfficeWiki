@@ -2,6 +2,7 @@
 
 Welcome to BackOffice Wiki
 ==========================
+*Version 1.1*
 
 This package was developed out of a requirement to allow back office users to share information and processes.
 

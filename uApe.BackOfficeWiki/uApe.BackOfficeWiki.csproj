@@ -279,10 +279,7 @@
     <Content Include="BackOfficeWiki\images\new.png" />
     <Content Include="BackOfficeWiki\images\save.png" />
     <Content Include="BackOfficeWiki\js\bootstrap.min.js" />
-    <Content Include="BackOfficeWiki\js\jquery.sortable.js">
-      <Compile>True</Compile>
-      <Minify>False</Minify>
-    </Content>
+    <Content Include="BackOfficeWiki\js\jquery-sortable.min.js" />
     <Content Include="BackOfficeWiki\js\wiki.combined.js">
       <DependentUpon>wiki.js</DependentUpon>
     </Content>
@@ -366,11 +363,15 @@
     <PostBuildEvent>xcopy $(ProjectDir)BackOfficeWiki\*.ascx $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\ /i /R /Y
 xcopy $(ProjectDir)BackOfficeWiki\css\*.min.css $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\css\ /i /R /Y
 xcopy $(ProjectDir)BackOfficeWiki\js\*.min.js $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\js\ /i /R /Y
-xcopy $(ProjectDir)BackOfficeWiki\js\jquery.sortable.js $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\js\ /i /R /Y
 xcopy $(ProjectDir)BackOfficeWiki\fonts\*.* $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\fonts\ /i /R /Y
 xcopy $(ProjectDir)BackOfficeWiki\images\*.* $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\images\ /i /R /Y
 xcopy $(ProjectDir)Config\*.config $(SolutionDir)Builds\$(ConfigurationName)\Config\ /i /R /Y
-xcopy $(SolutionDir)Builds\$(ConfigurationName) $(SolutionDir)..\uApe.BackOfficeWiki\ /i /R /Y /s
+
+REM -- Below is for debugging, and package builds - can be commented.
+
+REM xcopy $(ProjectDir)BackOfficeWiki\js\wiki.js $(SolutionDir)Builds\$(ConfigurationName)\Umbraco\Plugins\BackOfficeWiki\js\ /i /R /Y
+REM xcopy $(ProjectDir)App_Data\*.* $(SolutionDir)Builds\$(ConfigurationName)\App_Data\ /i /R /Y
+REM xcopy $(SolutionDir)Builds\$(ConfigurationName) $(SolutionDir)..\uApe.BackOfficeWiki\ /i /R /Y /s
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

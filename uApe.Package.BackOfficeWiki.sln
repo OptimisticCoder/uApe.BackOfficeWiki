@@ -6,7 +6,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5EBC1A0-217B-4884-AB0A-503C7470E35E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		Umbraco Package\uApe.BackOfficeWiki_1.0.zip = Umbraco Package\uApe.BackOfficeWiki_1.0.zip
+		Umbraco Package\uApe.BackOfficeWiki_1.1.zip = Umbraco Package\uApe.BackOfficeWiki_1.1.zip
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0E8E78FC-506B-4C71-8CA7-CB74841BEA09}"
