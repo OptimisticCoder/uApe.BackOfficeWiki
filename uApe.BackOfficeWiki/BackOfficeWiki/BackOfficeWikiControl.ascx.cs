@@ -41,8 +41,6 @@ namespace uApe.BackOfficeWiki
         public const String IconDeletePath = "/plugins/backofficewiki/images/delete.png";
         public const String IconDeleteTitle = "Delete Page";
 
-        public const String IconSplitterPath = "/images/editor/separator.gif";
-
         public const String IconNewPagePath = "/plugins/backofficewiki/images/new.png";
         public const String IconNewPageTitle = "New Page";
 
@@ -53,65 +51,13 @@ namespace uApe.BackOfficeWiki
         private MenuImageButton btnEditAndBack = null;
         private MenuImageButton btnSave = null;
         private MenuImageButton btnDelete = null;
-        private Image splitter = null;
         private MenuImageButton btnNewPage = null;
         private MenuImageButton btnCategoryEditor = null;
 
-        /// <summary>
-        /// The first method to be executed in this class, responsible for initializing the toolbar.
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnInit(EventArgs e)
         {
-            // Get a reference to the Wiki tab.
-            var tab = (TabPage)Parent.Parent.Parent;
-            var menu = tab.Menu;
-
-            // Add the multi-purpose "Edit" and "Back" button.
-            btnEditAndBack = tab.Menu.NewImageButton();
-            btnEditAndBack.ImageUrl = GlobalSettings.Path + IconEditPath;
-            btnEditAndBack.Command += new CommandEventHandler(btn_Command);
-            btnEditAndBack.ToolTip = IconEditTitle;
-            btnEditAndBack.CommandName = "edit";
-
-            // Add and hide the "Save" button.
-            btnSave = tab.Menu.NewImageButton();
-            btnSave.ImageUrl = GlobalSettings.Path + IconSavePath;
-            btnSave.Command += new CommandEventHandler(btn_Command);
-            btnSave.ToolTip = IconSaveTitle;
-            btnSave.CommandName = "save";
-            btnSave.Visible = false;
-
-            // Add and hide the "Delete" button.
-            btnDelete = tab.Menu.NewImageButton();
-            btnDelete.ImageUrl = GlobalSettings.Path + IconDeletePath;
-            btnDelete.Command += new CommandEventHandler(btn_Command);
-            btnDelete.ToolTip = IconDeleteTitle;
-            btnDelete.CommandName = "deletepage";
-            btnDelete.OnClientClick = "return deletePage()";
-            btnDelete.Visible = false;
-
-            // Add the splitter to seperate Save/Delete and New Page/Category Editor on Edit screen.
-            splitter = new Image();
-            splitter.ImageUrl = GlobalSettings.Path + IconSplitterPath;
-            splitter.Visible = false;
-            tab.Menu.InsertNewControl(splitter);
-
-            // Add and hide the "New Page" button.
-            btnNewPage = tab.Menu.NewImageButton();
-            btnNewPage.ImageUrl = GlobalSettings.Path + IconNewPagePath;
-            btnNewPage.Command += new CommandEventHandler(btn_Command);
-            btnNewPage.ToolTip = IconNewPageTitle;
-            btnNewPage.CommandName = "newpage";
-            btnNewPage.Visible = false;
-
-            // Add and hide the "Category Editor" button.
-            btnCategoryEditor = tab.Menu.NewImageButton();
-            btnCategoryEditor.ImageUrl = GlobalSettings.Path + IconCategoriesPath;
-            btnCategoryEditor.Command += new CommandEventHandler(btn_Command);
-            btnCategoryEditor.ToolTip = IconCategoriesTitle;
-            btnCategoryEditor.CommandName = "cats";
-            btnCategoryEditor.Visible = false;
+            base.OnInit(e);
+            initializeToolbar();
         }
 
         /// <summary>
@@ -135,7 +81,7 @@ namespace uApe.BackOfficeWiki
             {
                 displayBreadcrumbs.Visible = false;
             }
-            
+
             // Add autocomplete attribute to the page's form, to keep the UI clean.
             Page.Form.Attributes.Add("autocomplete", "off");
 
@@ -347,17 +293,16 @@ namespace uApe.BackOfficeWiki
                     btnEditAndBack.ToolTip = IconEditTitle;
                     btnEditAndBack.CommandName = "edit";
 
+                    btnSave.Visible = false;
+                    btnDelete.Visible = false;
+                    btnNewPage.Visible = false;
+                    btnCategoryEditor.Visible = false;
+
                     var editPerms = BackOfficeWikiConfig.GetRolesFor(BackOfficePermissionType.EditPage);
                     if (editPerms.Contains(currUser.UserType.Name))
                         btnEditAndBack.Visible = true;
                     else
                         btnEditAndBack.Visible = false;
-
-                    btnSave.Visible = false;
-                    btnDelete.Visible = false;
-                    splitter.Visible = false;
-                    btnNewPage.Visible = false;
-                    btnCategoryEditor.Visible = false;
 
                     hdnMode.Value = "Display";
 
@@ -371,7 +316,7 @@ namespace uApe.BackOfficeWiki
                     btnEditAndBack.ImageUrl = GlobalSettings.Path + IconBackPath;
                     btnEditAndBack.ToolTip = IconBackTitle;
                     btnEditAndBack.CommandName = "close";
-                    btnEditAndBack.Visible = true;
+
 
                     var savePerms = BackOfficeWikiConfig.GetRolesFor(BackOfficePermissionType.SavePage);
                     if (savePerms.Contains(currUser.UserType.Name))
@@ -397,11 +342,6 @@ namespace uApe.BackOfficeWiki
                     else
                         btnCategoryEditor.Visible = false;
 
-                    if (btnNewPage.Visible || btnCategoryEditor.Visible)
-                        splitter.Visible = true;
-                    else
-                        splitter.Visible = false;
-
                     hdnMode.Value = "Edit";
 
                     txtMarkDown.Text = loadRaw(ltPageName.Text);
@@ -413,7 +353,6 @@ namespace uApe.BackOfficeWiki
 
                     btnSave.Visible = true;
                     btnDelete.Visible = false;
-                    splitter.Visible = false;
                     btnNewPage.Visible = false;
                     btnCategoryEditor.Visible = false;
 
@@ -425,7 +364,6 @@ namespace uApe.BackOfficeWiki
 
                     btnSave.Visible = false;
                     btnDelete.Visible = false;
-                    splitter.Visible = false;
                     btnNewPage.Visible = false;
                     btnCategoryEditor.Visible = false;
 
@@ -502,6 +440,60 @@ namespace uApe.BackOfficeWiki
             ddlDelCatName.DataValueField = "Name";
             ddlDelCatName.DataTextField = "Name";
             ddlDelCatName.DataBind();
+        }
+
+        private void initializeToolbar()
+        {
+            // Get a reference to the Wiki toolbar.
+            var tab = (TabPage)Parent.Parent.Parent;
+            var toolbar = tab.Menu;
+
+            // Add the multi-purpose "Edit" and "Back" button.
+            btnEditAndBack = toolbar.NewImageButton();
+            btnEditAndBack.ID = "btnEditAndBack";
+            btnEditAndBack.Command += new CommandEventHandler(btn_Command);
+            btnEditAndBack.ToolTip = IconEditTitle;
+            btnEditAndBack.CommandName = "edit";
+
+            // Add and hide the "Save" button.
+            btnSave = toolbar.NewImageButton();
+            btnSave.ID = "btnSave";
+            btnSave.ImageUrl = GlobalSettings.Path + IconSavePath;
+            btnSave.Command += new CommandEventHandler(btn_Command);
+            btnSave.ToolTip = IconSaveTitle;
+            btnSave.CommandName = "save";
+            btnSave.Visible = false;
+
+            // Add and hide the "Delete" button.
+            btnDelete = toolbar.NewImageButton();
+            btnDelete.ID = "btnDelete";
+            btnDelete.ImageUrl = GlobalSettings.Path + IconDeletePath;
+            btnDelete.Command += new CommandEventHandler(btn_Command);
+            btnDelete.ToolTip = IconDeleteTitle;
+            btnDelete.CommandName = "deletepage";
+            btnDelete.OnClientClick = "return deletePage()";
+            btnDelete.Visible = false;
+
+            toolbar.InsertSplitter();
+
+            // Add and hide the "New Page" button.
+            btnNewPage = toolbar.NewImageButton();
+            btnNewPage.ID = "btnNewPage";
+            btnNewPage.ImageUrl = GlobalSettings.Path + IconNewPagePath;
+            btnNewPage.Command += new CommandEventHandler(btn_Command);
+            btnNewPage.ToolTip = IconNewPageTitle;
+            btnNewPage.CommandName = "newpage";
+            btnNewPage.Visible = false;
+
+            // Add and hide the "Category Editor" button.
+            btnCategoryEditor = toolbar.NewImageButton();
+            btnCategoryEditor.ID = "btnCategoryEditor";
+            btnCategoryEditor.ImageUrl = GlobalSettings.Path + IconCategoriesPath;
+            btnCategoryEditor.Command += new CommandEventHandler(btn_Command);
+            btnCategoryEditor.ToolTip = IconCategoriesTitle;
+            btnCategoryEditor.CommandName = "cats";
+            btnCategoryEditor.Visible = false;
+
         }
     }
 }

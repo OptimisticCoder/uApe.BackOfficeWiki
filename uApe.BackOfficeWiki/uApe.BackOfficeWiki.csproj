@@ -52,8 +52,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="controls">
-      <HintPath>..\packages\UmbracoCms.Core.6.1.5\lib\controls.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\Umbraco.Test4113\bin\controls.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
@@ -301,6 +300,7 @@
   <ItemGroup>
     <Compile Include="BackOfficeWiki\BackOfficeWikiConfig.cs" />
     <Compile Include="BackOfficeWiki\WikiData.cs" />
+    <Compile Include="BackOfficeWiki\BackOfficeWikiAction.cs" />
     <Compile Include="BackOfficeWiki\WikiPageCategory.cs" />
     <Compile Include="BackOfficeWiki\WikiPage.cs" />
     <Compile Include="BackOfficeWiki\BackOfficeWikiControl.ascx.cs">

@@ -3,6 +3,9 @@ var itemHeight;
 
 $(function () {
     var oldContainer;
+
+    if ($("#" + hdnMode).val() != "Edit")
+        $(".editorIconSplit").hide();
     $("ul.categorylist").sortable({
         containerSelector: 'ul',
         group: 'root',

@@ -9,6 +9,7 @@
     var ddlDelCatName = '<%=ddlDelCatName.ClientID %>';
     var hdnDisplayOrder = '<%=hdnDisplayOrder.ClientID %>';
     var hdnPageName = '<%=hdnPageName.ClientID %>';
+    var hdnMode = '<%=hdnMode.ClientID %>';
 </script>
 
 <asp:Panel ID="pnlError" runat="server" Visible="false" CssClass="alert alert-danger alert-dismissable">
